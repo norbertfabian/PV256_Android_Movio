@@ -8,6 +8,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        changeTheme();
         setContentView(R.layout.activity_main);
+    }
+
+    private void changeTheme() {
+        if (getTheme().equals(R.style.AppTheme)) {
+            setTheme(R.style.SecondaryAppTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
     }
 }

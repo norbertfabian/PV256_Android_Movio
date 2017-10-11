@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SecondaryAppTheme" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/secondaryColorPrimary</item>
+        <item name="colorPrimaryDark">@color/secondaryColorPrimaryDark</item>
+        <item name="colorAccent">@color/secondaryColorAccent</item>
+    </style>
+
 </resources>
