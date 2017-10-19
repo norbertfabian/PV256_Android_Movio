@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
-        applicationId "uco_396035.movio2.pv256.fi.muni.cz.movio"
+        applicationId "cz.muni.fi.pv256.movio.uco_396035"
         minSdkVersion 17
         targetSdkVersion 26
         versionCode 1
@@ -26,6 +26,5 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile "com.android.support:recyclerview-v7:26.+"
     testCompile 'junit:junit:4.12'
 }
