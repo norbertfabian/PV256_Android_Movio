@@ -98,21 +98,14 @@ public class MainFragment extends Fragment {
         MovieAdapter adapter = new MovieAdapter(mContext, movieList);
         filmLV.setAdapter(adapter);
 
-        filmLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mPosition = position;
-                mListener.onMovieSelect(movieList.get(position));
-            }
+        filmLV.setOnItemClickListener((parent, view, position, id) -> {
+            mPosition = position;
+            mListener.onMovieSelect(movieList.get(position));
         });
 
-        filmLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mContext, movieList.get(position).getTitle(), Toast.LENGTH_SHORT)
-                        .show();
-                return true;
-            }
+        filmLV.setOnItemLongClickListener((parent, view, position, id) -> {
+            Toast.makeText(mContext, movieList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+            return true;
         });
     }
 
