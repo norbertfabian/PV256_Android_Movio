@@ -91,6 +91,8 @@ public class MainFragment extends Fragment {
 
         if(movieList != null && !movieList.isEmpty()) {
             setAdapter(mListView, movieList);
+        } else {
+            mListView.setEmptyView(rootView.findViewById(R.id.empty_list));
         }
     }
 
