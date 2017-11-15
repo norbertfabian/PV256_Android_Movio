@@ -4,11 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,18 +30,18 @@ public class MainFragment extends Fragment {
     private static final String SELECTED_KEY = "selected_position";
 
     private int mPosition = ListView.INVALID_POSITION;
-    private OnMovieSelectListener mListener;
+    private MovieAdapter.OnMovieClickListener mListener;
     private Context mContext;
-    private ListView mListView;
+    private RecyclerView mListView;
 
     @Override
     public void onAttach(Context activity) {
         super.onAttach(activity);
 
         try {
-            mListener = (OnMovieSelectListener) activity;
+            mListener = (MovieAdapter.OnMovieClickListener) activity;
         } catch (ClassCastException e) {
-            Log.e(TAG, "Activity must implement OnMovieSelectListener", e);
+            Log.e(TAG, "Activity must implement OnMovieClickListener", e);
         }
     }
 
@@ -88,30 +89,25 @@ public class MainFragment extends Fragment {
     private void fillListView(View rootView) {
         ArrayList<Movie> movieList = MovieData.getInstance().getMovieList();
         mListView = rootView.findViewById(R.id.listview_movies);
+        View mEmptyList = rootView.findViewById(R.id.empty_list);
 
-        if(movieList != null && !movieList.isEmpty()) {
+        boolean emptyView = movieList == null || movieList.isEmpty();
+        if(!emptyView) {
             setAdapter(mListView, movieList);
-        } else {
-            mListView.setEmptyView(rootView.findViewById(R.id.empty_list));
         }
+        mListView.setVisibility(emptyView ? View.GONE : View.VISIBLE);
+        mEmptyList.setVisibility(emptyView ? View.VISIBLE : View.GONE);
     }
 
-    private void setAdapter(ListView filmLV, final ArrayList<Movie> movieList) {
-        MovieAdapter adapter = new MovieAdapter(mContext, movieList);
-        filmLV.setAdapter(adapter);
+    private void setAdapter(RecyclerView filmRV, final ArrayList<Movie> movieList) {
+        MovieAdapter adapter = new MovieAdapter(mContext, movieList, mListener,
+                (movie, position) -> {
+                    Toast.makeText(mContext, movieList.get(position).getTitle(), Toast.LENGTH_SHORT)
+                            .show();
+                    return true;
+                });
 
-        filmLV.setOnItemClickListener((parent, view, position, id) -> {
-            mPosition = position;
-            mListener.onMovieSelect(movieList.get(position));
-        });
-
-        filmLV.setOnItemLongClickListener((parent, view, position, id) -> {
-            Toast.makeText(mContext, movieList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
-            return true;
-        });
-    }
-
-    public interface OnMovieSelectListener {
-        void onMovieSelect(Movie movie);
+        filmRV.setAdapter(adapter);
+        filmRV.setLayoutManager(new LinearLayoutManager(mContext));
     }
 }

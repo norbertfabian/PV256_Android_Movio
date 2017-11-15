@@ -11,7 +11,7 @@ import cz.muni.fi.pv256.movio.uco_396035.detail.DetailActivity;
 import cz.muni.fi.pv256.movio.uco_396035.detail.DetailFragment;
 
 
-public class MainActivity extends AppCompatActivity implements MainFragment.OnMovieSelectListener {
+public class MainActivity extends AppCompatActivity implements MovieAdapter.OnMovieClickListener {
 
     private boolean mTwoPane;
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMo
     }
 
     @Override
-    public void onMovieSelect(Movie movie) {
+    public void onMovieClick(Movie movie) {
         if(mTwoPane) {
             FragmentManager fm = getSupportFragmentManager();
 

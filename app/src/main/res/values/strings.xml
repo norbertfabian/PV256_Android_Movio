@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Movio</string>
     <string name="title_activity_detail">Detail</string>
-    <string name="empty_list">No data</string>
+    <string name="no_data">No data</string>
 </resources>
